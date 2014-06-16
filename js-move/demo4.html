@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>自由落体</title>
+    <style>
+        #div1 {width: 100px; height: 100px; background: red; position: absolute;}
+    </style>
+</head>
+<body>
+    <input type="button" id="btn" value="自由落体">
+    <div id="div1"></div>
+
+
+    <script>
+        var oDiv = document.getElementById('div1'),
+            oBtn = document.getElementById('btn');
+        var timer = null,
+            iSpeed = 0;
+
+
+        oBtn.onclick = function() {
+            move();
+        }
+
+        function move() {
+            clearInterval(timer);
+            timer = setInterval(function(){
+                iSpeed += 3;
+                var T = oDiv.offsetTop + iSpeed;
+
+                if (T > document.documentElement.clientHeight - oDiv.offsetHeight) {
+                    T = oDiv.offsetTop;
+                    iSpeed *= -1;
+                    iSpeed *= 0.8;
+                }
+
+                oDiv.style.top = T  + 'px';
+            }, 30);
+        }
+
+
+
+
+
+    </script>
+</body>
+</html>
