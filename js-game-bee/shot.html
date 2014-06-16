@@ -36,6 +36,7 @@
             this.drawAir();
         },
 
+        //绘制小蜜蜂容器
         drawElem: function(level) {
             var $ul = $('<ul></u>'),
                 $box = $('#box');
@@ -76,6 +77,7 @@
 
         },
 
+        //小蜜蜂容器移动
         moveElem: function(level) {
             var _left = 0,
                 ul = $('ul').get(0),
@@ -83,7 +85,6 @@
                 self = this;
                 var timer = setInterval(function() {
 
-                    // $ul.css('left', $ul.offset().left + level.speedX)
                     if(ul.offsetLeft > _right){
                         level.speedX *= -1;
                         ul.style.top = ul.offsetTop + level.speedY + 'px';
@@ -100,6 +101,7 @@
 
         },
 
+        //绘制飞机
         drawAir: function() {
             var $air = $('<div class="air"></div>'),
                 $box = $('#box'),
@@ -142,6 +144,7 @@
 
         },
 
+        //绘制子弹
         drawShots: function() {
             var $shots = $('<div class="shots"></div>'),
                 air = $('.air').get(0),
@@ -181,6 +184,7 @@
 
         },
 
+        //碰撞检测
         isCrash: function(o1, o2) {
             var left1 = o1.offsetLeft,
                 right1 = o1.offsetLeft + o1.offsetWidth,
@@ -198,6 +202,7 @@
 
         },
 
+        //关卡属性
         levelData: [
             {
                 drawMap : [
@@ -216,6 +221,7 @@
 
         ],
 
+        //小蜜蜂属性
         elemData: {
             elem1: {
                 className: 'elem1',
