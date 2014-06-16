@@ -1,0 +1,250 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>儿时经典游戏--小蜜蜂</title>
+    <style>
+        * {padding: 0; margin: 0;}
+        #box { width:800px; height:600px; overflow:hidden; background:black; margin:20px auto; position:relative;}
+
+        .score{ color:#fff; position: absolute; bottom: 0; left: 0}
+        ul{ position:relative;}
+        ul li {width:40px; height:28px; float: left; list-style: none}
+        .elem1{background:url(images/elem1.png) no-repeat;}
+        .elem2{height:28px; background:url(images/elem2.png) no-repeat;}
+        .elem3{height:28px; background:url(images/elem3.png) no-repeat;}
+        .shots{ width:1px; height:10px; background:#fff; position:absolute;}
+        .air{ width:46px; height:60px; background:url(images/air.png) no-repeat; position:absolute;}
+
+    </style>
+</head>
+<body>
+<div id="box">
+    <div class="score">积分：<em>0</em></div>
+
+</div>
+
+
+
+
+<script src="jquery-2.1.1.min.js"></script>
+<script>
+
+    var shotGame = {
+        init: function() {
+            this.drawElem(0);
+            this.drawAir();
+        },
+
+        drawElem: function(level) {
+            var $ul = $('<ul></u>'),
+                $box = $('#box');
+
+            var _level = this.levelData[level];
+
+            $ul.css({
+                'width': _level.col * 40,
+                'left': ($box.width() - _level.col * 40) / 2
+            }).appendTo($box);
+
+            for (var i = 0; i < _level.drawMap.length; i++) {
+                var $li = $('<li></li');
+                $li.attr('class', _level.drawMap[i]);
+                $li.data({
+                    score: this.elemData[_level.drawMap[i]].score,
+                    blood: this.elemData[_level.drawMap[i]].blood,
+                    speed: this.elemData[_level.drawMap[i]].speed
+                }).appendTo($ul);
+            }
+
+            $('ul li').each(function() {
+                $(this).data({
+                    top: $(this).get(0).offsetTop,
+                    left: $(this).get(0).offsetLeft
+                });
+            });
+
+            $('ul li').each(function() {
+                $(this).css({
+                    left: $(this).data('left'),
+                    top: $(this).data('top'),
+                    position: 'absolute'
+                });
+            });
+
+            this.moveElem(_level);
+
+        },
+
+        moveElem: function(level) {
+            var _left = 0,
+                ul = $('ul').get(0),
+                _right = $('#box').width() - ul.offsetWidth,
+                self = this;
+                var timer = setInterval(function() {
+
+                    // $ul.css('left', $ul.offset().left + level.speedX)
+                    if(ul.offsetLeft > _right){
+                        level.speedX *= -1;
+                        ul.style.top = ul.offsetTop + level.speedY + 'px';
+                    }
+                    else if(ul.offsetLeft < _left){
+                        level.speedX *= -1;
+                        ul.style.top = ul.offsetTop + level.speedY + 'px';
+                    }
+
+                    ul.style.left = ul.offsetLeft + level.speedX + 'px';
+
+                }, level.time);
+
+
+        },
+
+        drawAir: function() {
+            var $air = $('<div class="air"></div>'),
+                $box = $('#box'),
+                self = this;
+
+            $air.css({
+                top: $box.height() - $air.height(),
+                left: ($box.width() - $air.width()) / 2,
+            }).appendTo($box);
+
+
+            var timer = null;
+            $(document).on('keydown', function(e) {
+                !timer && (timer = setInterval(moveAir, 30));
+                if (e.keyCode == 37) {
+                    moveAir('l')
+                } else if(e.keyCode == 39) {
+                    moveAir('r')
+                }
+
+                function moveAir(direction) {
+                    var maxL = $box.get(0).offsetWidth - $air.get(0).offsetWidth,
+                        l = $air.get(0).offsetLeft - 20,
+                        r = $air.get(0).offsetLeft + 20;
+                    if (direction == 'l') {
+                        $air.get(0).style.left = l < 0 ? 0 : l + 'px';
+                    } else if (direction == 'r') {
+                        $air.get(0).style.left = r > maxL ? maxL : r  + 'px';
+                    }
+                }
+
+            });
+
+            $(document).on('keyup', function(e) {
+                if (e.keyCode == 32) {
+                    self.drawShots();
+                }
+            });
+
+
+        },
+
+        drawShots: function() {
+            var $shots = $('<div class="shots"></div>'),
+                air = $('.air').get(0),
+                self = this;
+            $shots.css({
+                left: air.offsetLeft + air.offsetWidth / 2,
+                top: air.offsetTop - 10
+            }).appendTo($('#box'));
+
+            var timer = setInterval(function() {
+                var _top = $shots.get(0).offsetTop - 10;
+
+                if(_top < -10){
+                    clearInterval(timer);
+                    $shots.remove();
+                } else {
+                    $shots.get(0).style.top = _top + 'px';
+                }
+
+                $('ul li').each(function() {
+                    if (self.isCrash($shots.get(0), $(this).get(0))) {
+                        if ($(this).data('blood') == 1) {
+                            $('em').text(parseInt($('em').text()) + $(this).data('score'))
+                            $(this).remove();
+                        } else {
+                            $(this).data('blood', $(this).data('blood') - 1);
+                        }
+                        $shots.remove();
+                        clearInterval(timer);
+
+                    }
+                });
+
+                if (!$('ul li').length) alert('ok');
+
+            }, 30);
+
+        },
+
+        isCrash: function(o1, o2) {
+            var left1 = o1.offsetLeft,
+                right1 = o1.offsetLeft + o1.offsetWidth,
+                top1 = o1.offsetTop,
+                bottom1 = o1.offsetTop + o1.offsetHeight,
+                left2 = o2.offsetLeft + o2.parentNode.offsetLeft,
+                right2 = o2.offsetLeft + o2.offsetWidth + o2.parentNode.offsetLeft,
+                top2 = o2.offsetTop + o2.parentNode.offsetTop,
+                bottom2 = o2.offsetTop + o2.offsetHeight + o2.parentNode.offsetTop;
+            if (right1 < left2 || left1 > right2 || top1 > bottom2 || bottom1 < top2) {
+                return false;
+            } else {
+                return true;
+            }
+
+        },
+
+        levelData: [
+            {
+                drawMap : [
+                    'elem3','elem2','elem2','elem2','elem2','elem2','elem2','elem2','elem2','elem3',
+                    'elem2','elem3','elem2','elem2','elem2','elem2','elem2','elem2','elem3','elem2',
+                    'elem2','elem2','elem3','elem2','elem3','elem3','elem2','elem3','elem2','elem2',
+                    'elem1','elem1','elem1','elem1','elem1','elem1','elem1','elem1','elem1','elem1',
+                    'elem1','elem1','elem1','elem1','elem1','elem1','elem1','elem1','elem1','elem1',
+                    'elem1','elem1','elem1','elem1','elem1','elem1','elem1','elem1','elem1','elem1'
+                ],
+                col : 10,
+                speedX : 10,
+                speedY : 10,
+                time : 500
+            }
+
+        ],
+
+        elemData: {
+            elem1: {
+                className: 'elem1',
+                score: 1,
+                blood: 1,
+                speed: 2
+            },
+            elem2: {
+                className: 'elem2',
+                score: 2,
+                blood: 2,
+                speed: 4
+            },
+            elem3: {
+                className: 'elem2',
+                score: 5,
+                blood: 3,
+                speed: 8
+            }
+        }
+
+
+
+    }
+
+
+    shotGame.init();
+
+
+</script>
+</body>
+</html>
