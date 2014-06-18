@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>canvas Demo</title>
+</head>
+<body>
+<canvas id="mycanvas" width="500" height="500" style="border:1px solid #cccccc;"></canvas>
+
+
+<script type="text/javascript">
+	var canvas = document.getElementById("mycanvas");
+	var c = canvas.getContext("2d");
+	var img = new Image();
+    img.src = '1.jpg';
+    img.onload = function() {
+        // c.drawImage(img,0,0,100,150,20,20,130,120);
+        var pat = c.createPattern(img, 'repeat');
+        // c.fillStyle = pat;
+        // c.rotate(20*Math.PI/180);旋转
+        // c.scale(0.5, 0.5);缩放
+        c.drawImage(img, 0, 0);
+        // c.fillRect(0, 0, 500, 400);
+        // c.scale(2,2);
+        // c.rect(0, 0, 500, 400);
+        // c.fillStyle = pat;
+        // c.fill();
+    }
+</script>
+
+</body>
+</html>

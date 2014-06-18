@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>canvas Demo</title>
+</head>
+<body>
+<canvas id="mycanvas" width="500" height="500" style="border:1px solid #cccccc;"></canvas>
+<button id="clear">clear</button>
+
+<script type="text/javascript">
+    var canvas = document.getElementById('mycanvas'),
+        oCan = canvas.getContext('2d'),
+        oClear = document.getElementById('clear');
+    oCan.strokeStyle = '#FF0000';
+    oCan.lineWidth = 10;
+
+    oClear.onclick = function() {
+        oCan.clearRect(0, 0, 500, 500);
+
+    }
+
+    canvas.onmousedown = function(e) {
+        var e = e || window.event,
+            x = e.clientX - canvas.offsetLeft,
+            y = e.clientY - canvas.offsetTop;
+
+        oCan.moveTo(x, y);
+        document.onmousemove = function(e) {
+            var e = e || window.event,
+            x = e.clientX - canvas.offsetLeft,
+            y = e.clientY - canvas.offsetTop;
+            oCan.lineTo(x, y);
+            oCan.stroke();
+
+        }
+        document.onmouseup = function() {
+            document.onmousemove = null;
+            document.onmouseup = null;
+        }
+    }
+
+
+
+</script>
+
+</body>
+</html>

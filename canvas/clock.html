@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>canvas Demo</title>
+</head>
+<body>
+<canvas id="mycanvas" width="500" height="500" style="border:1px solid #cccccc;"></canvas>
+
+
+<script type="text/javascript">
+    var canvas = document.getElementById('mycanvas'),
+        oCan = canvas.getContext('2d');
+    function drawClock() {
+        var x = 200,
+            y = 200,
+            r = 150;
+
+        oCan.clearRect(0, 0, 500, 500);
+
+        var oDate = new Date(),
+            h = oDate.getHours(),
+            m = oDate.getMinutes(),
+            s = oDate.getSeconds();
+
+        //时间算弧度
+        var hv = (-90 + h * 30 + m / 2) * Math.PI / 180;
+        var mv = (-90 + m * 6) * Math.PI / 180;
+        var sv = (-90 + s * 6) * Math.PI / 180;
+
+        //短刻度
+        oCan.beginPath();
+        for (var i = 0; i < 60; i ++) {
+            oCan.moveTo(x, y);
+            oCan.arc(x, y, r, 6 * i * Math.PI / 180, 6 * ( i + 1 ) * Math.PI / 180, false);
+        }
+        oCan.closePath();
+        oCan.stroke();
+
+        oCan.fillStyle = '#ffffff';
+        oCan.beginPath();
+        oCan.moveTo(x, y);
+        oCan.arc(x, y, r * 0.96, 0, 360 * Math.PI / 180, false);
+        oCan.closePath();
+        oCan.fill();
+
+        //长刻度
+        oCan.lineWidth = 3;
+        oCan.beginPath();
+        for (var i = 0; i < 12; i ++) {
+            oCan.moveTo(x, y);
+            oCan.arc(x, y, r, 30 * i * Math.PI / 180, 30 * ( i + 1 ) * Math.PI / 180, false);
+        }
+        oCan.closePath();
+        oCan.stroke();
+
+        oCan.fillStyle = '#ffffff';
+        oCan.beginPath();
+        oCan.moveTo(x, y);
+        oCan.arc(x, y, r * 0.92, 0, 360 * Math.PI / 180, false);
+        oCan.closePath();
+        oCan.fill();
+
+        //时针
+        oCan.lineWidth = 5;
+        oCan.beginPath();
+        oCan.moveTo(x, y);
+        oCan.arc(x, y, r * 0.5, hv, hv, false);
+        oCan.closePath();
+        oCan.stroke();
+
+        //分针
+        oCan.lineWidth = 3;
+        oCan.beginPath();
+        oCan.moveTo(x, y);
+        oCan.arc(x, y, r * 0.6, mv, mv, false);
+        oCan.closePath();
+        oCan.stroke();
+
+        //秒针
+        oCan.lineWidth = 1;
+        oCan.beginPath();
+        oCan.moveTo(x, y);
+        oCan.arc(x, y, r * 0.9, sv, sv, false);
+        oCan.closePath();
+        oCan.stroke();
+    }
+
+    drawClock();
+
+    setInterval(drawClock, 1000);
+
+</script>
+
+</body>
+</html>
