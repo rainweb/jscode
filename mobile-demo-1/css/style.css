@@ -1,0 +1,356 @@
+@charset "utf-8";
+/* CSS Document */
+html,body,div,p,h1,h2,h3,h4,h5,h6,ul,ol,dl,dt,dd,li,a{margin:0;padding:0;}
+ul,li{list-style:none;}
+img{ vertical-align:top;border:none;}
+a{text-decoration:none;border:none}
+html,body{height:100%;}
+
+
+/* clear */
+.clearfix:after{content:".";display:block;height: 0;clear: both;visibility: hidden;font-size: 0;}
+.clearfix{display:block;zoom:1;}
+* html .clearfix{height:1%;}
+
+/*
+ *  Core Owl Carousel CSS File
+ *  v1.3.2
+ */
+
+/* clearfix */
+.owl-carousel .owl-wrapper:after {
+    content: ".";
+    display: block;
+    clear: both;
+    visibility: hidden;
+    line-height: 0;
+    height: 0;
+}
+/* display none until init */
+.owl-carousel{
+    display: none;
+    position: relative;
+    width: 100%;
+    -ms-touch-action: pan-y;
+}
+.owl-carousel .owl-wrapper{
+    display: none;
+    position: relative;
+    -webkit-transform: translate3d(0px, 0px, 0px);
+}
+.owl-carousel .owl-wrapper-outer{
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+}
+.owl-carousel .owl-wrapper-outer.autoHeight{
+    -webkit-transition: height 500ms ease-in-out;
+    -moz-transition: height 500ms ease-in-out;
+    -ms-transition: height 500ms ease-in-out;
+    -o-transition: height 500ms ease-in-out;
+    transition: height 500ms ease-in-out;
+}
+
+.owl-carousel .owl-item{
+    float: left;
+}
+.owl-controls .owl-page,
+.owl-controls .owl-buttons div{
+    cursor: pointer;
+}
+.owl-controls {
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+/* mouse grab icon */
+.grabbing {
+    cursor:url(grabbing.png) 8 8, move;
+}
+
+/* fix */
+.owl-carousel  .owl-wrapper,
+.owl-carousel  .owl-item{
+    -webkit-backface-visibility: hidden;
+    -moz-backface-visibility:    hidden;
+    -ms-backface-visibility:     hidden;
+  -webkit-transform: translate3d(0,0,0);
+  -moz-transform: translate3d(0,0,0);
+  -ms-transform: translate3d(0,0,0);
+}
+
+
+/*
+*   Owl Carousel Owl Demo Theme
+*   v1.3.2
+*/
+
+.owl-theme .owl-controls{
+    margin-top: 10px;
+    text-align: center;
+}
+
+/* Styling Next and Prev buttons */
+
+.owl-theme .owl-controls .owl-buttons div{
+    color: #FFF;
+    display: inline-block;
+    zoom: 1;
+    margin: 5px;
+    padding: 3px 10px;
+    font-size: 12px;
+    -webkit-border-radius: 30px;
+    -moz-border-radius: 30px;
+    border-radius: 30px;
+    background: #869791;
+    opacity: 0.5;
+}
+/* Clickable class fix problem with hover on touch devices */
+/* Use it for non-touch hover action */
+.owl-theme .owl-controls.clickable .owl-buttons div:hover{
+    opacity: 1;
+    text-decoration: none;
+}
+
+/* Styling Pagination*/
+
+.owl-theme .owl-controls .owl-page{
+    display: inline-block;
+    zoom: 1;
+}
+.owl-theme .owl-controls .owl-page span{
+    display: block;
+    width: 12px;
+    height: 12px;
+    margin: 5px 7px;
+    opacity: 0.5;
+    -webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+    border-radius: 20px;
+    background: #869791;
+}
+
+.owl-theme .owl-controls .owl-page.active span,
+.owl-theme .owl-controls.clickable .owl-page:hover span{
+    opacity: 1;
+}
+
+/* If PaginationNumbers is true */
+
+.owl-theme .owl-controls .owl-page span.owl-numbers{
+    height: auto;
+    width: auto;
+    color: #FFF;
+    padding: 2px 10px;
+    font-size: 12px;
+    -webkit-border-radius: 30px;
+    -moz-border-radius: 30px;
+    border-radius: 30px;
+}
+
+/* preloading images */
+.owl-item.loading{
+    min-height: 150px;
+    background: url(AjaxLoader.gif) no-repeat center center
+}
+
+/*
+*   Owl Carousel Owl Demo Theme
+*   v1.3.2
+*/
+
+.owl-theme .owl-controls{
+    margin-top: 10px;
+    text-align: center;
+}
+
+/* Styling Next and Prev buttons */
+
+.owl-theme .owl-controls .owl-buttons div{
+    color: #FFF;
+    display: inline-block;
+    zoom: 1;
+    *display: inline;/*IE7 life-saver */
+    margin: 5px;
+    padding: 3px 10px;
+    font-size: 12px;
+    -webkit-border-radius: 30px;
+    -moz-border-radius: 30px;
+    border-radius: 30px;
+    background: #869791;
+    filter: Alpha(Opacity=50);/*IE7 fix*/
+    opacity: 0.5;
+}
+/* Clickable class fix problem with hover on touch devices */
+/* Use it for non-touch hover action */
+.owl-theme .owl-controls.clickable .owl-buttons div:hover{
+    filter: Alpha(Opacity=100);/*IE7 fix*/
+    opacity: 1;
+    text-decoration: none;
+}
+
+/* Styling Pagination*/
+
+.owl-theme .owl-controls .owl-page{
+    display: inline-block;
+    zoom: 1;
+    *display: inline;/*IE7 life-saver */
+}
+.owl-theme .owl-controls .owl-page span{
+    display: block;
+    width: 12px;
+    height: 12px;
+    margin: 5px 7px;
+    filter: Alpha(Opacity=50);/*IE7 fix*/
+    opacity: 0.5;
+    -webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+    border-radius: 20px;
+    background: #869791;
+}
+
+.owl-theme .owl-controls .owl-page.active span,
+.owl-theme .owl-controls.clickable .owl-page:hover span{
+    filter: Alpha(Opacity=100);/*IE7 fix*/
+    opacity: 1;
+}
+
+/* If PaginationNumbers is true */
+
+.owl-theme .owl-controls .owl-page span.owl-numbers{
+    height: auto;
+    width: auto;
+    color: #FFF;
+    padding: 2px 10px;
+    font-size: 12px;
+    -webkit-border-radius: 30px;
+    -moz-border-radius: 30px;
+    border-radius: 30px;
+}
+
+/* preloading images */
+.owl-item.loading{
+    min-height: 150px;
+    background: url(AjaxLoader.gif) no-repeat center center
+}
+
+.wrapper {position:relative;width:100%;height:100%;overflow:hidden;-webkit-box-sizing:border-box; background: #ccc}
+.page-bg {position:absolute;left:0;top:0;width:100%;height:100%;}
+.bg-1 { background: #eaf0f1}
+.img100{width:100%; height: 100%}
+.page1-text1 {-webkit-transition: 1s ease all; position:absolute;left:100%;width:100%; bottom: 22%; }
+.page1-text2 {-webkit-transition: 1.5s ease all;position:absolute;left:100%;width:100%; bottom: 15%;}
+.page1-text1 img {width: 100%; margin: 0 auto;}
+.page1-text2 img {width: 100%; margin: 0 auto;}
+.pages {opacity: 0;-webkit-transition: 1s ease all; display: none;}
+.active-page {opacity: 1;}
+.active-page .text1-animation {left: 0; opacity: 1}
+.hide {display: none;}
+
+.page-up {position:absolute;top:10px;width:100%;height:30px;}
+.page-up .page-up-arrow{position:absolute;bottom:0px;width:100%;height:12px;background:url(../images/icon-42x24.png?t=1) center center no-repeat;background-size:contain; -webkit-transform:rotate(180deg); opacity: 0.5;}
+.page-down {position:absolute;bottom:10px;width:100%;height:30px;}
+.page-down .page-down-arrow{position:absolute;bottom:0px;width:100%;height:12px;background:url(../images/icon-42x24.png?t=1) center center no-repeat;background-size:contain;opacity: 0.5;}
+
+.animation-arrowtop{
+    -webkit-animation:1s 1s ease infinite alternate;
+    -webkit-animation-name:arrowtop;
+}
+
+@-webkit-keyframes arrowtop{
+    0%{top:10px;}
+    50%{top:20px;}
+    100%{top:10px;}
+}
+
+.animation-arrowbottom{
+    -webkit-animation:1s 1s ease infinite alternate;
+    -webkit-animation-name:arrowbottom;
+}
+
+@-webkit-keyframes arrowbottom{
+    0%{bottom:10px;}
+    50%{bottom:20px;}
+    100%{bottom:10px;}
+}
+
+
+#page-bg2 {background:url(../images/page2-bg.png?t=1); background-size: 100%;}
+.page2-title {position:absolute;left:100%;width:100%;top:0; opacity: 0; -webkit-transition: 1s ease all; }
+.active-page .page2-title-animation { top: 3%; opacity: 1;left: 0}
+.page2-title img {width:100%;margin:0 auto;}
+.page2-flows-box {position:absolute;width:90%;left:5%;top:12%;text-align:center}
+.page2-flows-box .lc-img {width:80%;margin:0 auto;margin-top:11%}
+.page2-flows-box .owl-theme .owl-controls .owl-page span {width:6px;height:6px;background-color:#9f9f9f}
+.page2-flows-box .owl-theme .owl-controls .active span {background-color:#41a4bd}
+.page2-flows-box .owl-theme .owl-controls .owl-buttons div {width:24px;height:10px;position:absolute;top:40%;}
+.page2-flows-box .owl-theme .owl-controls .owl-buttons .owl-prev {left:10px;background:url(../images/icon-42x24.png) center center no-repeat;background-size:contain; left: -5%; -webkit-transform:rotate(90deg);}
+.page2-flows-box .owl-theme .owl-controls .owl-buttons .owl-next {right:10px;background:url(../images/icon-42x24.png) center center no-repeat;background-size:contain; right: -5%;-webkit-transform:rotate(-90deg);}
+
+
+#page-bg3 {background:url(../images/page3-bg.png?t=1) #28c772 no-repeat;background-size: 100%;}
+.page3-title {position:absolute;width:100%;top:-12%; opacity: 0; -webkit-transition: 1s ease all; }
+.page3-title-1 {position:absolute; width: 100%; left: 20%; top: 17%; opacity: 0; -webkit-transition: 1s ease all; -webkit-transform:scale(0); }
+.page3-title-1 img {width: 100%; margin: 0 auto;}
+.animation-minmap{
+    -webkit-animation:1s 0.5s ease infinite alternate;
+    -webkit-animation-name:minmap;
+}
+
+@-webkit-keyframes minmap{
+    0%{top:17%;}
+    50%{top:18%;}
+    100%{top:17%;}
+}
+
+.active-page .page3-title-1-animation {opacity: 1; -webkit-transform:scale(1);}
+.active-page .page3-title-animation { top: 3%; opacity: 1;}
+.page3-title img {width:100%;margin:0 auto;}
+.page3-buttom{position:absolute;left:0; bottom:-15%; -webkit-transition: 1s ease all;}
+.active-page .page3-buttom-animation { opacity: 1;left: 0; bottom:8%;}
+.page3-buttom img{width:100%}
+
+#page-bg5 {background: #f75a5a no-repeat;background-size: 100%;}
+.page5-title {position:absolute;width:100%;top:-12%; opacity: 0; -webkit-transition: 1s ease all; }
+.active-page .page5-title-animation { top: 3%; opacity: 1;}
+.page5-title img {width:100%;margin:0 auto;}
+.page5-buttom{position:absolute;left:0; bottom:-15%; -webkit-transition: 1s ease all;}
+.page5-title img {width:100%;margin:0 auto;}
+.page5-flows-box {position:absolute;width:90%;left:5%;top:16%;text-align:center}
+.page5-flows-box .lc-img {width:75%;margin:0 auto;margin-top:11%}
+.page5-flows-box .lc-title {width:100%;margin:0 auto;padding-top:10%; color: #ffffff; font-size: 1.2em;}
+.page5-flows-box .owl-theme .owl-controls .owl-page span {width:6px;height:6px;background-color:#9f9f9f}
+.page5-flows-box .owl-theme .owl-controls .active span {background-color:#41a4bd}
+.page5-flows-box .owl-theme .owl-controls .owl-buttons div {width:24px;height:10px;position:absolute;top:40%;}
+.page5-flows-box .owl-theme .owl-controls .owl-buttons .owl-prev {left:10px;background:url(../images/icon-42x24.png?t=1) center center no-repeat;background-size:contain; left: -5%; -webkit-transform:rotate(90deg);}
+.page5-flows-box .owl-theme .owl-controls .owl-buttons .owl-next {right:10px;background:url(../images/icon-42x24.png?t=1) center center no-repeat;background-size:contain; right: -5%;-webkit-transform:rotate(-90deg);}
+
+
+#page-bg6 {background:url(../images/page6-bg.png?t=1) #dae5e8 no-repeat;background-size: 100%;}
+.page6-buttom{position:absolute;left:100%; bottom:-25%; -webkit-transition: 0.5s ease all; opacity: 0}
+.active-page .page6-buttom-animation { opacity: 1;left: 0; bottom:8%;}
+.page6-buttom img{width:100%}
+.page6-flows-box {position:absolute;width:100%;top:-3%;text-align:center}
+.page6-flows-box .lc-img {width:100%;margin:0 auto;margin-top:11%}
+.page6-flows-box .owl-theme .owl-controls .owl-page span {width:6px;height:6px;background:#ffffff}
+.page6-flows-box .owl-theme .owl-controls .active span {background:#ff6600}
+.page6-flows-box .owl-theme .owl-controls {position:absolute;bottom:5%; left: 40%;}
+.page6-flows-box .owl-theme .owl-controls .owl-page span {width:10px;height:10px;background:#ffffff}
+.page6-flows-box .owl-theme .owl-controls .owl-page.active span {background:#ff6600}
+
+#page-bg4 {background:url(../images/page4-bg.png?t=1) #862578 no-repeat;background-size: 100%;}
+.page4-title {position:absolute;width:100%;top:-12%; opacity: 0; -webkit-transition: 1s ease all; }
+.page4-title img {width:100%;margin:0 auto;}
+.active-page .page4-title-animation { top: 3%; opacity: 1;}
+.page4-flows-box {position:absolute;width:60%;left:0;top:30%;text-align:center;left:20%}
+.page4-flows-box img {width:100%;}
+.page4-flows-box .mobile {color:#fff;text-align:center;margin-top:66%;font-size:16px;}
+.page4-flows-box .owl-item {width:100%;height:100%;}
+.page4-flows-box .owl-carousel .owl-wrapper-outer{overflow:inherit;}
+.page4-flows-box .f-img {position:absolute;left:-5%;top:-5%}
+
+
