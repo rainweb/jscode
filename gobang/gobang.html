@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>gobang</title>
+
+    <style>
+        table, tr, td {margin: 0; padding: 0;}
+        table {border-bottom: 1px solid #000; border-left: 1px solid #000; border-collapse:collapse;}
+        td {border-right: 1px solid #000; border-top: 1px solid #000; height:50px; width:50px; text-align: center; color: red;}
+        td.black {background: url("images/black.png") 50% 50% no-repeat;}
+        td.white {background: url("images/white.png") 50% 50% no-repeat;}
+    </style>
+
+</head>
+<body>
+
+<div id="gobang"></div>
+
+
+
+<script>
+
+    var $ = function(id) {
+        return document.getElementById(id);
+    }
+
+    var hasClass = function (obj, cls) {
+        return obj.className.match(new RegExp('(\\s|^)' + cls + '(\\s|$)'));
+    }
+
+    var addClass = function(obj, cls) {
+         if (!this.hasClass(obj, cls)) obj.className += " " + cls;
+    }
+
+    var extend = function(a, b) {
+        for (var i in b) {
+            a[i] = b[i];
+        }
+        return a;
+    }
+
+    function GoBang(option) {
+        var defaults = {
+            row: 20,
+            column: 20
+        }
+
+        defaults = extend(defaults, option);
+
+        this.row = defaults.row;
+        this.column = defaults.column;
+        this.step = 1;
+
+        var self = this,
+            dataArr = [],
+            isOver = false;
+        for (var m = 0; m < this.column; m++) {
+            dataArr[m] = [];
+            for (var n = 0; n < this.row; n++) {
+                dataArr[m][n] = null;
+            }
+        }
+
+        this.init = function() {
+            this.drawBoard();
+            this.drawChess();
+        }
+
+        this.drawBoard = function() {
+            var _innerHtml = [];
+                _innerHtml.push('<table>');
+            for (var i = 0; i <= this.row - 1; i++) {
+                _innerHtml.push('<tr>');
+                for (var j = 0; j <= this.column - 1; j++) {
+                    _innerHtml.push('<td id="' + j +',' + i + '"></td>');
+                }
+                _innerHtml.push('</tr>');
+            }
+            _innerHtml.push('</table>');
+
+            $('gobang').innerHTML = _innerHtml.join('');
+        }
+
+
+        this.drawChess = function() {
+            $('gobang').addEventListener('click', function(e) {
+                if (isOver) {
+                    alert('游戏已经结束，请刷新页面重新开始!');
+                    return;
+                }
+                var obj = e.target,
+                    x = parseInt(obj.id.split(',')[0]),
+                    y = parseInt(obj.id.split(',')[1]);
+
+                if (obj.tagName == 'TD' && !hasClass(obj, 'white') && !hasClass(obj, 'black')) {
+                    if (self.step % 2 == 0) {
+                        addClass(e.target, 'white');
+                    } else {
+                        addClass(e.target, 'black');
+                    }
+                    obj.innerHTML = self.step++;
+                    chess = obj.className.trim();
+                    dataArr[x][y] = chess;
+                    self.isWin(x, y, chess);
+                };
+            }, false);
+
+        }
+
+        this.isWin = function(x, y, chess) {
+            var whoWin;
+
+            var countX = 0;
+            for (var i = x + 1; i < this.column; i++) {//右
+                if (dataArr[i] && dataArr[i][y] != chess) {
+                    break;
+                }
+                countX++;
+                whoWin = chess;
+            }
+            for (var i = x; i >= 0; i--) {//左
+                 if (dataArr[i] && dataArr[i][y] != chess) {
+                    break;
+                }
+                countX++;
+                whoWin = chess;
+            }
+
+
+            var countY = 0;
+            for (var i = y; i >= 0; i--) {//上
+                if (dataArr[x][i] != chess) {
+                    break;
+                }
+                countY++;
+                whoWin = chess;
+            }
+            for (var i = y + 1; i < this.column; i++) { //下
+                if (dataArr[x][i] != chess) {
+                    break;
+                }
+                countY++;
+                whoWin = chess;
+            }
+
+            var countLTRB = 0;
+            for (var i = x, j = y; i >= 0, j >= 0; i--, j--) {//左上
+                if (dataArr[i] && dataArr[i][j] != chess) {
+                    break;
+                }
+                countLTRB++;
+                whoWin = chess;
+            }
+            for (var i = x + 1, j = y + 1; i < this.column, j < this.row; i++, j++) {//右下
+                if (dataArr[i] && dataArr[i][j] != chess) {
+                    break;
+                }
+                countLTRB++;
+                whoWin = chess;
+            }
+
+            var countRTLB = 0;
+            for (var i = x, j = y; i >= 0, j < this.row; i--, j++) {//右上
+                if (dataArr[i] && dataArr[i][j] != chess) {
+                    break;
+                }
+                countRTLB++;
+                whoWin = chess;
+            }
+            for (var i = x + 1, j = y - 1; i < this.column, j >= 0; i++, j--) {//左下
+                if (dataArr[i] && dataArr[i][j] != chess) {
+                    break;
+                }
+                countRTLB++;
+                whoWin = chess;
+            }
+
+            if (countX == 5 || countY == 5 || countLTRB == 5 || countRTLB == 5) {
+                alert(whoWin + 'Chess win!');
+                isOver = true;
+            }
+        }
+
+    }
+
+
+    var gobang = new GoBang();
+    gobang.init();
+
+</script>
+
+</body>
+</html>
