@@ -25,12 +25,12 @@
         return document.getElementById(id);
     }
 
-    var hasClass = function (obj, cls) {
+    var hasClass = function(obj, cls) {
         return obj.className.match(new RegExp('(\\s|^)' + cls + '(\\s|$)'));
     }
 
     var addClass = function(obj, cls) {
-         if (!this.hasClass(obj, cls)) obj.className += " " + cls;
+        if (!this.hasClass(obj, cls)) obj.className += " " + cls;
     }
 
     var extend = function(a, b) {
@@ -69,11 +69,11 @@
 
         this.drawBoard = function() {
             var _innerHtml = [];
-                _innerHtml.push('<table>');
+            _innerHtml.push('<table>');
             for (var i = 0; i <= this.row - 1; i++) {
                 _innerHtml.push('<tr>');
                 for (var j = 0; j <= this.column - 1; j++) {
-                    _innerHtml.push('<td id="' + j +',' + i + '"></td>');
+                    _innerHtml.push('<td id="' + j + ',' + i + '"></td>');
                 }
                 _innerHtml.push('</tr>');
             }
@@ -100,7 +100,7 @@
                         addClass(e.target, 'black');
                     }
                     obj.innerHTML = self.step++;
-                    chess = obj.className.trim();
+                    var chess = obj.className.trim();
                     dataArr[x][y] = chess;
                     self.isWin(x, y, chess);
                 };
@@ -110,26 +110,24 @@
 
         this.isWin = function(x, y, chess) {
             var whoWin;
-
             var countX = 0;
-            for (var i = x + 1; i < this.column; i++) {//右
+            for (var i = x + 1; i < this.column; i++) { //右
                 if (dataArr[i] && dataArr[i][y] != chess) {
                     break;
                 }
                 countX++;
                 whoWin = chess;
             }
-            for (var i = x; i >= 0; i--) {//左
-                 if (dataArr[i] && dataArr[i][y] != chess) {
+            for (var i = x; i >= 0; i--) { //左
+                if (dataArr[i] && dataArr[i][y] != chess) {
                     break;
                 }
                 countX++;
                 whoWin = chess;
             }
 
-
             var countY = 0;
-            for (var i = y; i >= 0; i--) {//上
+            for (var i = y; i >= 0; i--) { //上
                 if (dataArr[x][i] != chess) {
                     break;
                 }
@@ -145,14 +143,14 @@
             }
 
             var countLTRB = 0;
-            for (var i = x, j = y; i >= 0, j >= 0; i--, j--) {//左上
+            for (var i = x, j = y; i >= 0, j >= 0; i--, j--) { //左上
                 if (dataArr[i] && dataArr[i][j] != chess) {
                     break;
                 }
                 countLTRB++;
                 whoWin = chess;
             }
-            for (var i = x + 1, j = y + 1; i < this.column, j < this.row; i++, j++) {//右下
+            for (var i = x + 1, j = y + 1; i < this.column, j < this.row; i++, j++) { //右下
                 if (dataArr[i] && dataArr[i][j] != chess) {
                     break;
                 }
@@ -161,14 +159,14 @@
             }
 
             var countRTLB = 0;
-            for (var i = x, j = y; i >= 0, j < this.row; i--, j++) {//右上
+            for (var i = x, j = y; i >= 0, j < this.row; i--, j++) { //右上
                 if (dataArr[i] && dataArr[i][j] != chess) {
                     break;
                 }
                 countRTLB++;
                 whoWin = chess;
             }
-            for (var i = x + 1, j = y - 1; i < this.column, j >= 0; i++, j--) {//左下
+            for (var i = x + 1, j = y - 1; i < this.column, j >= 0; i++, j--) { //左下
                 if (dataArr[i] && dataArr[i][j] != chess) {
                     break;
                 }
